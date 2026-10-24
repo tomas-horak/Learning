@@ -1,0 +1,52 @@
+@baseUrl = http://localhost:5080
+@token = course-demo-token
+@userId = 1
+
+### List all users
+GET {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Get one user
+GET {{baseUrl}}/api/users/{{userId}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create a user
+POST {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Jordan Lee",
+  "email": "jordan.lee@example.com"
+}
+
+### Update a user
+PUT {{baseUrl}}/api/users/{{userId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Jordan Lee",
+  "email": "jordan.lee@new-example.com"
+}
+
+### Delete a user
+DELETE {{baseUrl}}/api/users/{{userId}}
+Authorization: Bearer {{token}}
+
+### Invalid token should return 401
+GET {{baseUrl}}/api/users
+Authorization: Bearer invalid-token
+Accept: application/json
+
+### Invalid user data should return validation errors
+POST {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "not-an-email"
+}
